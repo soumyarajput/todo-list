@@ -2,7 +2,9 @@ from flask import Flask,render_template,request,redirect
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 import pytz
-
+def get_india_time():
+    india_tz = pytz.timezone("Asia/Kolkata")
+    return datetime.now(india_tz).strftime("%Y-%m-%d %H:%M:%S")
 
 
 app=Flask(__name__)
@@ -15,7 +17,8 @@ class Todo(db.Model):
     sno=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(200),nullable=False)
     desc=db.Column(db.String(500),nullable=False)
-    date_created=db.Column(db.DateTime,default=datetime.now(pytz.timezone("Asia/Kolkata")))
+    date_created = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone("Asia/Kolkata")))
+
 
     def __repr__(self)->str:
         return f"{self.sno}-{self.title}-{self.desc}"
