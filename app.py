@@ -57,6 +57,7 @@ def update(sno):
         todo=Todo.query.filter_by(sno=sno).first()
         todo.title=title
         todo.desc=desc
+        todo.date_created = datetime.now(pytz.timezone("Asia/Kolkata"))  # Update timestamp
         db.session.add(todo)
         db.session.commit()
         return redirect('/')
