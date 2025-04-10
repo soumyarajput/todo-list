@@ -34,7 +34,57 @@
     </div>
 
     {% else %}
-    <table class="table">
+
+
+
+
+    <style>
+        .scrollable-table {
+          max-height: 450px;  /* Adjust based on how many rows you want visible */
+          overflow-y: auto;
+        }
+      
+        thead th {
+          position: sticky;
+          top: 0;
+          background-color: #fff;
+          z-index: 1;
+        }
+      </style>
+      
+      <div class="scrollable-table border">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Time</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for todo in alltodo %}
+            <tr>
+              <th scope="row">{{loop.index}}</th>
+              <td>{{todo.title}}</td>
+              <td>{{todo.desc}}</td>
+              <td>{{todo.date_created}}</td>
+              <td>
+                <a href="/update/{{todo.sno}}" class="btn btn-outline-secondary btn-sm mx-1">Update</a>
+                <a href="/delete/{{todo.sno}}" class="btn btn-outline-secondary btn-sm">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      
+
+
+
+    <!-- <table class="table">
         <thead>
             <tr>
                 <th scope="col">S.No</th>
@@ -61,6 +111,6 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table> -->
     {% endif %}
     {% endblock body %}
